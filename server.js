@@ -11,6 +11,11 @@ app.use(express.json({
   }
 }));
 
+// ヘルスチェック（cron-job / Renderスリープ対策）
+app.get('/', (req, res) => {
+  res.send('zamawan-line is alive');
+});
+
 app.post('/webhook', (req, res) => {
   const signature = req.headers['x-line-signature'];
   const hmac = crypto.createHmac('sha256', LINE_CHANNEL_SECRET);
@@ -105,7 +110,9 @@ async function handleEvents(events) {
 
 【お問い合わせ】
 座間市 地域プロモーション課 魅力創出係
-電話：046-252-7961【撮影アイデアの相談】
+電話：046-252-7961
+
+【撮影アイデアの相談】
 撮影テーマや方法に迷っている人には積極的にアイデアを提案してください。
 
 - 町工場・職人系：火花や手元のクローズアップ、職人の表情、作業音を意識した演出
